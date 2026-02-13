@@ -83,6 +83,7 @@ def generate_launch_description():
             "/imu/data_raw@sensor_msgs/msg/Imu[gz.msgs.IMU",
             "/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model",
             "/model/leo_rover/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
+            "/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan",
         ],
         parameters=[
             {"qos_overrides./tf_static.publisher.durability": "transient_local"}

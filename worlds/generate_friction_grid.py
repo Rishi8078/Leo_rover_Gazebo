@@ -42,11 +42,13 @@ WEIGHTS = {
     'deep_sand': 1,     # 10% deep sand (stuck zones!)
 }
 
-def generate_friction_zones(grid_size=10, terrain_size=100, cell_height=0.1):
-    """Generate SDF models for friction zones."""
+def generate_friction_zones(grid_cols=9, grid_rows=18, terrain_width=5.4, terrain_height=10.8, cell_height=0.1):
+    """Generate SDF models for friction zones (supports rectangular grids)."""
     
-    cell_size = terrain_size / grid_size
-    offset = terrain_size / 2 - cell_size / 2
+    cell_width = terrain_width / grid_cols
+    cell_height_dim = terrain_height / grid_rows
+    offset_x = terrain_width / 2 - cell_width / 2
+    offset_y = terrain_height / 2 - cell_height_dim / 2
     
     models = []
     zone_id = 0
@@ -55,8 +57,8 @@ def generate_friction_zones(grid_size=10, terrain_size=100, cell_height=0.1):
     surface_types = list(WEIGHTS.keys())
     weights = list(WEIGHTS.values())
     
-    for row in range(grid_size):
-        for col in range(grid_size):
+    for row in range(grid_rows):
+        for col in range(grid_cols):
             # Random surface type
             stype = random.choices(surface_types, weights=weights)[0]
             props = SURFACE_TYPES[stype]
@@ -74,8 +76,8 @@ def generate_friction_zones(grid_size=10, terrain_size=100, cell_height=0.1):
             color = props['color']
             
             # Position (centered on terrain)
-            x = col * cell_size - offset
-            y = row * cell_size - offset
+            x = col * cell_width - offset_x
+            y = row * cell_height_dim - offset_y
             # Position so top surface is at z=0
             z = -cell_height / 2
             
@@ -87,7 +89,7 @@ def generate_friction_zones(grid_size=10, terrain_size=100, cell_height=0.1):
         <collision name="collision">
           <geometry>
             <box>
-              <size>{cell_size:.2f} {cell_size:.2f} {cell_height}</size>
+              <size>{cell_width:.2f} {cell_height_dim:.2f} {cell_height}</size>
             </box>
           </geometry>
           <surface>
@@ -108,7 +110,7 @@ def generate_friction_zones(grid_size=10, terrain_size=100, cell_height=0.1):
         <visual name="visual">
           <geometry>
             <box>
-              <size>{cell_size:.2f} {cell_size:.2f} {cell_height}</size>
+              <size>{cell_width:.2f} {cell_height_dim:.2f} {cell_height}</size>
             </box>
           </geometry>
           <material>
@@ -126,7 +128,7 @@ def generate_friction_zones(grid_size=10, terrain_size=100, cell_height=0.1):
 
 def main():
     print("Generating friction zones...")
-    zones = generate_friction_zones(grid_size=10, terrain_size=100)
+    zones = generate_friction_zones(grid_cols=9, grid_rows=18, terrain_width=5.4, terrain_height=10.8)
     
     with open('friction_zones.sdf', 'w') as f:
         f.write("<!-- Friction zones - include in world file -->\n")

@@ -45,7 +45,7 @@ world = '''<?xml version="1.0"?>
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>200 200</size>
+              <size>15 15</size>
             </plane>
           </geometry>
         </collision>
@@ -55,7 +55,7 @@ world = '''<?xml version="1.0"?>
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>200 200</size>
+              <size>15 15</size>
             </plane>
           </geometry>
           <material>
@@ -74,6 +74,79 @@ zones_content = '\n'.join(zones.split('\n')[2:])
 world += zones_content
 
 world += '''
+
+    <!-- Boundary Walls (5.4m x 10.8m arena) -->
+    <!-- North wall (y = +5.4) -->
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0 5.4 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.4 0.05 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.4 0.05 0.3</size></box></geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- South wall (y = -5.4) -->
+    <model name="wall_south">
+      <static>true</static>
+      <pose>0 -5.4 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.4 0.05 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.4 0.05 0.3</size></box></geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- East wall (x = +2.7) -->
+    <model name="wall_east">
+      <static>true</static>
+      <pose>2.7 0 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 10.8 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 10.8 0.3</size></box></geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- West wall (x = -2.7) -->
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-2.7 0 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 10.8 0.3</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 10.8 0.3</size></box></geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
 
     <!-- Sun Light -->
     <light type="directional" name="sun">

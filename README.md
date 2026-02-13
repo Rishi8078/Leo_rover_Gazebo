@@ -1,6 +1,6 @@
 # Gazebo Simulation Project
 
-This project simulates a Leo Rover in a simple desert world using Gazebo Sim.
+This project simulates a Leo Rover in a simple Sand world using Gazebo Sim.
 
 ## Prerequisites
 
